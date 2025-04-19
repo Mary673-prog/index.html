@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment & Verification</title>
+  <link rel="stylesheet" href="payment.css" />
+  <style>
+    body {
+      background-color: #90c837; /* Set background color */
+      font-family: Arial, sans-serif;
+    }
+
+    .center-container {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+
+    }
+
+    .payment-container {
+      max-width: 600px;
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .method {
+      flex: 1;
+      border: 2px solid #ccc;
+      margin: 0 5px;
+      border-radius: 10px;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .method input {
+      display: none;
+    }
+
+    .method.selected {
+      border-color: blue;
+      background-color: #eef;
+    }
+
+    .method img {
+      height: 30px;
+      margin-bottom: 5px;
+    }
+
+    .payment-form {
+      display: none;
+      margin-top: 15px;
+      margin-right: 20px;
+    }
+
+    .payment-form input {
+      width: 100%;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .uploads, .rooming-list {
+      margin-top: 20px;
+    }
+
+    .uploads label {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="center-container">
+  <div class="payment-container">
+    <h2>Payment & Verification</h2>
+
+    <!-- Upload Section First -->
+    <div class="uploads">
+      <label for="passport-upload">Upload Passport:</label>
+      <input type="file" id="passport-upload" name="passport-upload">
+
+      <label for="selfie-upload">Upload Selfie:</label>
+      <input type="file" id="selfie-upload" name="selfie-upload">
+    </div>
+
+    <!-- Payment Methods -->
+    <h3>How do you want to pay?</h3>
+    <div class="payment-methods">
+      <label class="method selected" data-method="new-card">
+        <input type="radio" name="payment-method" value="new-card" checked>
+        <img src="https://img.icons8.com/ios-filled/50/credit-card-front.png"/>
+        <div>New card</div>
+      </label>
+
+      <label class="method" data-method="google-pay">
+        <input type="radio" name="payment-method" value="google-pay">
+        <img src="https://img.icons8.com/color/48/google-pay-india.png"/>
+        <div>Google Pay</div>
+      </label>
+
+      <label class="method" data-method="truemoney">
+        <input type="radio" name="payment-method" value="truemoney">
+        <img src="https://images.seeklogo.com/logo-png/36/1/truemoney-wallet-logo-png_seeklogo-367826.png" height="30"/>
+        <div>TrueMoney</div>
+      </label>
+
+      <label class="method" data-method="paypal">
+        <input type="radio" name="payment-method" value="paypal">
+        <img src="https://img.icons8.com/ios-filled/50/000000/paypal.png"/>
+        <div>PayPal</div>
+      </label>
+    </div>
+
+    <!-- New card form -->
+    <div class="payment-form" id="card-form" style="display: block;">
+      <label>Cardholder's name *</label>
+      <input type="text" placeholder="Name on card" required>
+
+      <label>Card number *</label>
+      <input type="text" placeholder="1234 5678 9012 3456" required>
+
+      <label>Expiration date *</label>
+      <input type="text" placeholder="MM/YY" required>
+
+      <label>CVC *</label>
+      <input type="text" placeholder="123" required>
+    </div>
+
+    <div class="rooming-list">
+      <label for="rooming-list">Update Rooming List:</label><br />
+      <textarea id="rooming-list" placeholder="Add or Update Guest's Name" rows="3"></textarea>
+    </div>
+
+    <!-- Change the button to navigate to feedback.html -->
+    <button id="submit-payment">Check in</button>
+  </div>
+</div>
+
+<script>
+  // Toggle selected styles
+  document.querySelectorAll('.method').forEach(method => {
+    method.addEventListener('click', function () {
+      document.querySelectorAll('.method').forEach(m => m.classList.remove('selected'));
+      this.classList.add('selected');
+
+      // Show card form only for "New Card"
+      const methodValue = this.querySelector('input').value;
+      const cardForm = document.getElementById('card-form');
+      cardForm.style.display = methodValue === 'new-card' ? 'block' : 'none';
+    });
+  });
+
+  // Show file name after uploading
+  document.getElementById('passport-upload').addEventListener('change', function () {
+    // No need to display file name anymore
+  });
+
+  document.getElementById('selfie-upload').addEventListener('change', function () {
+    // No need to display file name anymore
+  });
+
+  // Add event to redirect to feedback.html after check-in
+  document.getElementById('submit-payment').addEventListener('click', function () {
+    window.location.href = 'feedback.html'; // Redirect to feedback page
+  });
+</script>
+
+</body>
+</html>
